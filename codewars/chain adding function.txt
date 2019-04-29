@@ -1,0 +1,17 @@
+function add(n) {
+	var func = function(m) { return add(n + m); };
+  func.valueOf = function() { return n; };
+  return func;
+}
+
+function add(n) {
+  var next = add.bind(n += this | 0);
+  next.valueOf = function() { return n; };
+  return next;
+}
+
+function add(n){
+  var fn = function(x) { return add(n+x); }
+  fn.toString = function() { return n; }
+  return fn;
+}
