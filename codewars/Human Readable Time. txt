@@ -1,0 +1,6 @@
+function humanReadable(seconds) {
+  var hrs = Math.floor(seconds / 3600);
+  var mins = Math.floor(seconds / 60) - hrs * 60;
+  var arr = [hrs, mins, Math.floor(seconds % 60)];
+  return arr.map(i => {return i < 10 ? "0"+i : ""+i;}).join(":");
+}
