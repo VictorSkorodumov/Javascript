@@ -1,0 +1,20 @@
+function incrementString (strng) {
+  var nums = [];
+  var letters = [];
+  var zeros = [];
+  var flag = true;
+  strng.split("").forEach(i => { // for each letter in strng
+    if (!isNaN(parseInt(i, 10))) { // if element is a number
+      if (i !== "0") {
+        nums.push(i);
+        flag = false;
+      }
+      if (flag && i === "0") zeros.push(i);
+    }
+    else letters.push(i);
+  });
+  var prevLength = nums.length;
+  var nums_str = nums.length === 0 ? "1" : (parseInt(nums.join(""), 10) + 1)+"";
+  if (nums_str.split("").length > prevLength) zeros.pop();
+  return letters.join("") + zeros.join("") + nums_str;
+}
