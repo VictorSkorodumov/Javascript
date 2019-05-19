@@ -10,3 +10,13 @@ function pigWord(word) {
   temp.push(temp.shift());
   return temp.join("") + "ay";
 }
+
+//============================
+
+pigIt = s => s.split(' ').map(e => e.substr(1) + e[0] + 'ay').join(' ');
+
+//============================
+
+function pigIt(str){
+  return str.replace(/(\w)(\w*)(\s|$)/g, "\$2\$1ay\$3")
+}
