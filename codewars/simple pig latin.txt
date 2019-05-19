@@ -1,0 +1,12 @@
+function pigIt(str){
+  var punct = str.match(/[,?!@#$%^&*]/);
+  var ar = str.replace(/[^A-Za-z0-9\s]/g, "").split(" ").map(i => pigWord(i)).join(" ");
+  return ar + (punct === null ? "" : punct);
+}
+
+function pigWord(word) {
+  if (word === "") return "";
+  var temp = word.split("");
+  temp.push(temp.shift());
+  return temp.join("") + "ay";
+}
