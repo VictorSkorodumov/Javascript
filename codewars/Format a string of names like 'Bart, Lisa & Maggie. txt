@@ -1,0 +1,7 @@
+function list(names){
+  let namesList = names.map(obj => obj.name);
+  const lastName = namesList.pop();
+  return namesList.length > 0 
+    ? [namesList.join(", "), lastName].join(" & ") 
+    : (lastName ? lastName : "");
+}
