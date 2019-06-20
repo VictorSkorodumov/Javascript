@@ -1,0 +1,23 @@
+function chooseBestSum(maxSum, nTowns, list) {
+    if (list.length < nTowns) return null;
+    const combinations = subArrays(list);
+    let sums = [];
+    combinations
+      .filter(route => route.length === nTowns)
+      .forEach(route => sums.push(getSum(route)));
+    const max = Math.max(...sums.filter(sum => sum <= maxSum));
+    return max > 0 ? max : null;
+}
+
+function getSum(array) {
+  return array.reduce((a, b) => a + b);
+}
+
+function subArrays(arr){
+  let kLengths = []; 
+  if (arr.length === 1) return [arr];
+  else {
+    subarr = subArrays(arr.slice(1));
+    return subarr.concat(subarr.map(e => e.concat(arr[0])), [[arr[0]]]);
+  }
+}
