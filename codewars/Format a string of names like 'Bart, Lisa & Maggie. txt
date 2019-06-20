@@ -1,3 +1,4 @@
+//My version:
 function list(names){
   let namesList = names.map(obj => obj.name);
   const lastName = namesList.pop();
@@ -5,3 +6,12 @@ function list(names){
     ? [namesList.join(", "), lastName].join(" & ") 
     : (lastName ? lastName : "");
 }
+
+//Someone:
+function list(names) {
+  var xs = names.map(p => p.name)
+  var x = xs.pop()
+  return xs.length ? xs.join(", ") + " & " + x : x || ""
+}
+
+var list = (names) =>  names.map(x => x.name).join(', ').replace(/(.*),(.*)$/, "$1 &$2")
