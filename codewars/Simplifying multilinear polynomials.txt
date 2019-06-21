@@ -1,0 +1,47 @@
+function simplify(poly) {
+  //call-back function
+  const replacer = (match) => match.split("").sort().join(""); //sort monom
+  
+  //get array of members of polynomial (with coefficients)
+  let monos = poly.replace(/[a-z]+/g, replacer).split(/[+-]/);
+  if (monos[0] === "") monos.shift();
+  
+  //get array of signs
+  let signs = poly.match(/[+-]/g);
+  if (poly.slice(0, 1) !== "-") signs = ["+", ...signs];
+  if (poly.slice(0, 1) === "+") signs.shift();
+  
+  //get array of arrays where each sub-array contains coefficient and literals of related
+  //member of polynomial
+  let newMonos = monos.map((mono, index) => {
+    const num = mono.match(/[0-9]+/g);
+    return num !== null ? [+(signs[index]+num[0]), mono.slice(num[0].length)] : [+(signs[index]+1), mono];
+  });
+    
+  //do arithmetic with arrays...
+  let resObj = {};
+  newMonos.forEach((monoArray, index) => {
+    if (resObj[monoArray[1]]) {
+      resObj[monoArray[1]] += monoArray[0];
+    }
+    else resObj[monoArray[1]] = monoArray[0];
+  });
+  
+  //get the answer from object in correct format
+  let resArray = [];
+  for (let key in resObj) if (resObj[key] === 0) delete resObj[key];
+  for (let key in resObj) {
+    const num = resObj[key];
+    if (num > 0 && num !== 1) resArray.push("+" + num + key);
+    else if (num < 0 && num !== -1) resArray.push("" + num + key);
+    else if (num === 1) resArray.push("+" + key);
+    else if (num === -1) resArray.push("-" + key);
+  }
+
+  let resString = resArray
+    .sort((a, b) => a.match(/[a-z]+/)[0] > b.match(/[a-z]+/)[0])
+    .sort((a, b) => a.match(/[a-z]+/)[0].length > b.match(/[a-z]+/)[0].length)
+    .join("");
+    
+  return resString.slice(0, 1) === "+" ? resString.substring(1) : resString;
+}
